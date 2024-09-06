@@ -1,0 +1,87 @@
+// syntax = "proto3";
+
+// package email;
+
+// // The Email service definition.
+// service EmailService {
+//   // Sends an email
+//   rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+// }
+
+// // The request message containing the email details.
+// message SendEmailRequest {
+//   string to = 1;
+//   string subject = 2;
+//   string body = 3;
+// }
+
+// // The response message containing the status of the email operation.
+// message SendEmailResponse {
+//   bool success = 1;
+//   string message = 2;
+// }
+
+
+// // email.proto
+// syntax = "proto3";
+// package email;
+
+// service EmailService {
+//   rpc SendEmail(EmailRequest) returns (EmailResponse);
+// }
+
+// message EmailRequest {
+//   string to = 1;
+//   string subject = 2;
+//   string text = 3;
+// }
+
+// message EmailResponse {
+//   string status = 1;
+// }
+
+
+syntax = "proto3";
+
+package email;
+
+service EmailService {
+  rpc SendEmail(EmailRequest) returns (EmailResponse);
+  rpc ReadEmail(ReadEmailRequest) returns (EmailResponse);
+  rpc UpdateEmail(UpdateEmailRequest) returns (EmailResponse);
+  rpc DeleteEmail(DeleteEmailRequest) returns (EmailResponse);
+  rpc GetEmail(ReadEmailRequest) returns (EmailResponse); // Ensure this is defined
+}
+
+message EmailRequest {
+  string to = 1;
+  string subject = 2;
+  string text = 3;
+}
+
+message EmailResponse {
+  string status = 1;
+  Email email = 2;
+}
+
+message ReadEmailRequest {
+  string id = 1;
+}
+
+message UpdateEmailRequest {
+  string id = 1;
+  string to = 2;
+  string subject = 3;
+  string text = 4;
+  
+}
+
+message DeleteEmailRequest {
+  string id = 1;
+}
+
+message Email {
+  string to = 2;
+  string subject = 3;
+  string text = 4;
+}

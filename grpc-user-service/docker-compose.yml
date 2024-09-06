@@ -1,0 +1,30 @@
+version: "3"
+services:
+  phpmyadmin:
+    container_name: phpmyadmin_container
+    image: phpmyadmin/phpmyadmin:5.1.1
+    restart: on-failure
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    environment:
+      PMA_HOST: mysql-server
+
+    ports:
+      - "0.0.0.0:8084:80"
+  mysql-server:
+    image: mysql:8.0.19
+    container_name: mysql_container
+    restart: on-failure
+    command:
+      [
+        "--default-authentication-plugin=mysql_native_password",
+        "--max_connections=10000",
+      ]
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=admin123
+    volumes:
+      - /data/dockerVolume/mysql-data:/var/lib/mysql
+    ports:
+      - "0.0.0.0:3306:3306"
